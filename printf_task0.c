@@ -77,12 +77,3 @@ int _printf(const char *format, ...)
 	return (count);
 }
 
-/**
- * main - Entry point
- *
- * Return: Always 0
- */
-int main(void)
-{
-	return(0);
-}
