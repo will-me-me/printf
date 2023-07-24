@@ -4,68 +4,76 @@
 #include <unistd.h>
 
 /**
- * _printf - prints formatted output to stdout
- * @format: The format string containing the directives
- * Return: The number of characters printed (excluding the null byte)
- */
-int _printf(const char *format, ...)
-{
-	int count = 0;
-	va_list args;
-
-	va_start(args, format);
-
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			format++; /* Move to the character after '%' */
-			switch (*format)
-			{
-				case 'c':
-					count += _putchar(va_arg(args, int));
-					break;
-				case 's':
-				{
-					char *str = va_arg(args, char *);
-					if (!str)
-						str = "(null)";
-					int i = 0;
-					while (str[i])
-					{
-						count += _putchar(str[i]);
-						i++;
-					}
-					break;
-				}
-				case '%':
-					count += _putchar('%');
-					break;
-				default:
-					count += _putchar('%');
-					count += _putchar(*format);
-			}
-		}
-		else
-		{
-			count += _putchar(*format);
-		}
-
-		format++;
-	}
-
-	va_end(args);
-	return (count);
-}
-
-/**
  * _putchar - writes the character c to stdout
  * @c: The character to print
  * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ *         On error, -1 is returned, and errno is set appropriately.
  */
 int _putchar(char c)
 {
 	return (write(1, &c, 1));
+}
+
+/**
+ * _puts - prints a string, followed by a new line
+ * @str: pointer to the string to print
+ * Return: number of characters printed
+ */
+int _puts(char *str)
+{
+	int i = 0;
+
+	while (str[i])
+	{
+		_putchar(str[i]);
+		i++;
+	}
+	return (i);
+}
+
+/**
+ * _printf - prints anything
+ * @format: list of argument types passed to the function
+ * Return: number of characters printed
+ */
+int _printf(const char *format, ...)
+{
+	int i = 0, count = 0;
+	va_list args;
+	char *str;
+
+	va_start(args, format);
+	while (format && format[i])
+	{
+		if (format[i] == '%')
+		{
+			i++;
+			switch (format[i])
+			{
+			case 'c':
+				count += _putchar(va_arg(args, int));
+				break;
+			case 's':
+				str = va_arg(args, char *);
+				if (!str)
+					str = "(null)";
+				count += _puts(str);
+				break;
+			case '%':
+				count += _putchar('%');
+				break;
+			case '\0':
+				return (-1);
+			default:
+				count += _putchar('%');
+				count += _putchar(format[i]);
+			}
+		}
+		else
+			count += _putchar(format[i]);
+		i++;
+	}
+	va_end(args);
+	return (count);
 }
 
