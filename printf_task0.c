@@ -41,6 +41,7 @@ int _printf(const char *format, ...)
 	int i = 0, count = 0;
 	va_list args;
 	char *str;
+	int len;
 
 	va_start(args, format);
 	while (format && format[i])
@@ -57,6 +58,9 @@ int _printf(const char *format, ...)
 				str = va_arg(args, char *);
 				if (!str)
 					str = "(null)";
+				len = 0;
+				while (str[len])
+					len++;
 				count += _puts(str);
 				break;
 			case '%':
