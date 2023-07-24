@@ -56,7 +56,7 @@ int _printf(const char *format, ...)
 			case 's':
 				str = va_arg(args, char *);
 				if (!str)
-					str = "";
+					str = "(null)";
 				count += _puts(str);
 				break;
 			case '%':
