@@ -71,10 +71,11 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			int chars = _putchar(format[i]);
+			count += _putchar(format[i]);
+//			int chars = _putchar(format[i]);
 
-			if (format[i] != '\n')
-				count += chars;
+//			if (format[i] != '\n')
+//				count += chars;
 		}
 		i++;
 	}
