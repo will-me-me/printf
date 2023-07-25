@@ -70,7 +70,11 @@ int _printf(const char *format, ...)
 			}
 		}
 		else
-			count += _putchar(format[i]);
+		{
+			int char = _putchar(format[i]);
+			if (format[i] != '\n')
+				count += char;
+		}
 		i++;
 	}
 	va_end(args);
