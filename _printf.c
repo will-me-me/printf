@@ -72,6 +72,7 @@ int _printf(const char *format, ...)
 		else
 		{
 			int char = _putchar(format[i]);
+
 			if (format[i] != '\n')
 				count += char;
 		}
