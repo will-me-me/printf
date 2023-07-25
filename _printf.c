@@ -1,20 +1,18 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdarg.h>
-#include <unistd.h>
+#include <stdlib.h>
 
 /**
- * _printf - function that produces output according to a format.
- * @format: character string. Format string is composed of zero or more
- *          directives.
- * Return: the number of characters printed (excluding the null byte used to
- *         end output to strings) or -1 if an error occurs.
+ * _printf - produces output according to a format
+ * @format: char pointer
+ * Return: int
  */
+
 int _printf(const char *format, ...)
 {
-	int i = 0, count = 0;
+	int i = 0, cnt = 0;
+	int (*func)(va_list);
 	va_list args;
-	int (*print_func)(va_list);
 
 	va_start(args, format);
 
@@ -22,25 +20,32 @@ int _printf(const char *format, ...)
 		return (-1);
 	while (format[i])
 	{
-		if (format[i] == '%')
+		if (format[i] != '%')
 		{
+			cnt += _putchar(format[i]);
 			i++;
-			if (format[i] == '\0')
-				return (-1);
-			print_func = get_print_func(format[i]);
-			if (print_func == NULL)
-			{
-				count += _putchar('%');
-				count += _putchar(format[i]);
-			}
-			else
-				count += print_func(args);
+			continue;
+		}
+		if (format[i + 1] == '%')
+		{
+			cnt += _putchar(format[++i]);
+			i++;
+			continue;
+		}
+		func = get_func(format[++i]);
+		if ((func) != NULL)
+		{
+			cnt += func(args);
 		}
 		else
-			count += _putchar(format[i]);
+		{
+			if (format[i] == '\0')
+				return (-1);
+			cnt += _putchar(format[i - 1]);
+			cnt += _putchar(format[i]);
+		}
 		i++;
 	}
 	va_end(args);
-	return (count);
+	return (cnt);
 }
-

@@ -2,36 +2,38 @@
 #include <stdlib.h>
 
 /**
- * get_print_func - returns the correct func or null
+ * get_func - returns the correct func or null
  * @id: char
  * Return: function
  */
-int (*get_print_func(char id))(va_list)
+
+int (*get_func(const char id))(va_list args)
 {
-	print_handler_t print_handlers[] = {
-		{'c', print_char},
-		{'s', print_string},
-		{'b', print_binary},
-		{'d', print_decimal},
-		{'i', print_decimal},
-		{'u', print_unsigned_int},
-		{'o', print_octal},
-		{'x', print_hex},
-		{'X', print_hex_upper},
-		{'S', print_non_printable},
-		{'r', print_reverse},
-		{'R', print_rot13},
-		{'p', print_pointer},
-		{'\0', NULL}
+	prv_t prv[] = {
+		{'c', pr_char},
+		{'s', pr_str},
+		{'b', pr_bin},
+		{'d', pr_dec},
+		{'i', pr_dec},
+		{'u', pr_un_int},
+		{'o', pr_octa},
+		{'x', pr_hex},
+		{'X', pr_heX},
+		{'S', pr_non_prt},
+		{'r', pr_rev},
+		{'R', pr_rot13},
+		{'p', pr_ptr}
 	};
+
+	const int PRV_LEN = 13;
 	int i = 0;
 
-	while (print_handlers[i].id != '\0')
+	while (i < PRV_LEN)
 	{
-		if (print_handlers[i].id == id)
-			return (print_handlers[i].print_func);
+		if (id == prv[i].id)
+			return (prv[i].f);
 		i++;
 	}
+
 	return (NULL);
 }
-

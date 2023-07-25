@@ -2,57 +2,58 @@
 #define MAIN_H
 
 #include <stdarg.h>
-#include <stdio.h>
+#include <stdlib.h>
 
 /**
- * struct print_handler - struct for printing
- * @id: type of argument
- * @print_func: function to print
+ * struct prv - struct prv
+ * @id: chat
+ * @f: function pointer
  */
-typedef struct print_handler
+
+typedef struct prv
 {
 	char id;
-	int (*print_func)(va_list args);
-} print_handler_t;
+	int (*f)(va_list args);
+} prv_t;
 
 int _printf(const char *format, ...);
 
-int (*get_print_func(char id))(va_list);
+int (*get_func(const char id))(va_list);
 
-/*int _putchar(int ch);*/
+int _putchar(int ch);
 
-int print_char(va_list args);
+int pr_char(va_list args);
 
-int print_string(va_list args);
+int pr_str(va_list args);
 
-int print_binary(va_list args);
-int convert_to_binary(unsigned int n, int *count);
+int pr_bin(va_list args);
+int cnvrt_to_bin(unsigned int n, int *cnt);
 
-int print_decimal(va_list args);
-int convert_to_decimal(int n, int *count);
-int _putchar(char ch);
-int print_unsigned_int(va_list args);
-int convert_to_unsigned_int(unsigned int n, int *count);
+int pr_dec(va_list args);
+int cnvrt_to_dec(int n, int *cnt);
 
-int print_octal(va_list args);
-int convert_to_octal(unsigned int n, int *count);
+int pr_un_int(va_list args);
+int cnvrt_to_un_int(unsigned int n, int *cnt);
 
-int print_hex(va_list args);
-int convert_to_hex(unsigned int n, int *count);
+int pr_octa(va_list args);
+int cnvrt_to_octa(unsigned int n, int *cnt);
 
-int print_hex_upper(va_list args);
-int convert_to_hex_upper(unsigned int n, int *count);
+int pr_hex(va_list args);
+int cnvrt_to_hex(unsigned int n, int *cnt);
 
-int get_base_length(int num, int base);
+int pr_heX(va_list args);
+int cnvrt_to_heX(unsigned int n, int *cnt);
 
-int print_non_printable(va_list args);
+int get_base_len(int n, int b);
 
-int print_reverse(va_list args);
-int get_string_length(char *s);
+int pr_non_prt(va_list args);
 
-int print_rot13(va_list args);
+int pr_rev(va_list args);
+int get_str_len(char *s);
 
-int print_pointer(va_list args);
-int convert_to_memory_address(unsigned long int n, int *pointer);
+int pr_rot13(va_list args);
+
+int pr_ptr(va_list args);
+int cnvrt_to_mem_addr(unsigned long int n, int *ptr);
 
 #endif
