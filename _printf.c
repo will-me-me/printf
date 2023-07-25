@@ -72,11 +72,11 @@ int _printf(const char *format, ...)
 		else
 		{
 			count += _putchar(format[i]);
-//			int chars = _putchar(format[i]);
+/**			int chars = _putchar(format[i]);
 
 //			if (format[i] != '\n')
 //				count += chars;
-		}
+*/		}
 		i++;
 	}
 	va_end(args);
