@@ -1,4 +1,1 @@
-Millowise and William poject
-TEAM WORK
-
-1 The print_tasko.c file produces an output accoring the a format given
+0x11. C - printf Project by O.S Adeleke && A.A Abdulrahman

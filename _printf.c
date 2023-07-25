@@ -1,51 +1,52 @@
 #include "main.h"
-#include <stdarg.h>
-#include <stdlib.h>
 
 /**
- * _printf - produces output according to a format
- * @format: char pointer
- * Return: int
+ * _printf - function to replicate printf
+ * @format: format to be printed.
+ *
+ * Return: 0 if successful.
  */
 
 int _printf(const char *format, ...)
 {
-	int i = 0, cnt = 0;
-	int (*func)(va_list);
-	va_list args;
+	va_list arg;
+	int i, j, no_c = 0;
 
-	va_start(args, format);
-
-	if (format == NULL)
+	print_d data[] = {
+		{"c", pc}, {"s", ps}, {"%", pp}, {"d", dc}, {"u", dcu}, {"i", dc},
+		{"b", bc}, {"S", ps}
+	}; /** add print dig call and all after **/
+	va_start(arg, format);
+	if (!format)
 		return (-1);
-	while (format[i])
+	for (i = 0; format[i]; i++)
 	{
 		if (format[i] != '%')
 		{
-			cnt += _putchar(format[i]);
-			i++;
-			continue;
-		}
-		if (format[i + 1] == '%')
-		{
-			cnt += _putchar(format[++i]);
-			i++;
-			continue;
-		}
-		func = get_func(format[++i]);
-		if ((func) != NULL)
-		{
-			cnt += func(args);
+			_putchar(format[i]);
+			no_c++;
 		}
 		else
 		{
-			if (format[i] == '\0')
+			if (!format[i + 1] || format[i + 1] == ' ')
 				return (-1);
-			cnt += _putchar(format[i - 1]);
-			cnt += _putchar(format[i]);
+			for (j = 0; j < 8; j++) /** changed j < 3 to j < 6 **/
+			{
+				if (format[i + 1] == *(data[j].c))
+					break;
+			}
+			if (j < 8) /** changed j < 3 to j < 6 **/
+			{
+				no_c = no_c + data[j].f_pr(arg);
+				i++;
+			}
+			else
+			{
+				_putchar(format[i]);
+				no_c++;
+			}
 		}
-		i++;
 	}
-	va_end(args);
-	return (cnt);
+	va_end(arg);
+	return (no_c);
 }
