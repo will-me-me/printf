@@ -63,7 +63,8 @@ int _printf(const char *format, ...)
 				count += _putchar('%');
 				break;
 			case '\0':
-				return (-1);
+				break;
+				/*return (-1);*/
 			default:
 				count += _putchar('%');
 				count += _putchar(format[i]);
