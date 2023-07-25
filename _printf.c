@@ -69,7 +69,7 @@ int _printf(const char *format, ...)
 				count += _putchar(format[i]);
 			}
 		}
-		else
+		else if (format[i] != '\0')
 			count += _putchar(format[i]);
 		i++;
 	}
